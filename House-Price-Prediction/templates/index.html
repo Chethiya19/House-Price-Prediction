@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" style="width: 30px; height: 30px; margin-right: 10px;">
+            House Price Predictor
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-light" href="/login" role="button">Login</a>
+                </li>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero bg-primary text-white text-center py-2">
+        <div class="container">
+            <h1 class="display-4">Predict Your House Price</h1>
+            <p class="lead">Enter the details of your house to get an accurate price prediction.</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <form action="/" method="post">
+                    <div class="form-group">
+                        <label for="MSSubClass">MSSubClass:</label>
+                        <select id="MSSubClass" name="MSSubClass" class="form-control" required>
+                            <option value="20">1-STORY 1946 & NEWER ALL STYLES</option>
+                            <option value="30">1-STORY 1945 & OLDER</option>
+                            <option value="40">1-STORY W/FINISHED ATTIC ALL AGES</option>
+                            <option value="45">1-1/2 STORY - UNFINISHED ALL AGES</option>
+                            <option value="50">1-1/2 STORY FINISHED ALL AGES</option>
+                            <option value="60">2-STORY 1946 & NEWER</option>
+                            <option value="70">2-STORY 1945 & OLDER</option>
+                            <option value="75">2-1/2 STORY ALL AGES</option>
+                            <option value="80">SPLIT OR MULTI-LEVEL</option>
+                            <option value="85">SPLIT FOYER</option>
+                            <option value="90">DUPLEX - ALL STYLES AND AGES</option>
+                            <option value="120">1-STORY PUD (Planned Unit Development) - 1946 & NEWER</option>
+                            <option value="150">1-1/2 STORY PUD - ALL AGES</option>
+                            <option value="160">2-STORY PUD - 1946 & NEWER</option>
+                            <option value="180">PUD - MULTILEVEL - INCL SPLIT LEV/FOYER</option>
+                            <option value="190">2 FAMILY CONVERSION - ALL STYLES AND AGES</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="LotArea">Lot size (Square Feet):</label>
+                        <input type="number" id="LotArea" name="LotArea" class="form-control" step="any" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="HouseStyle">House Style:</label>
+                        <select id="HouseStyle" name="HouseStyle" class="form-control" required>
+                            <option value="1Story">One story</option>
+                            <option value="1.5Fin">One and one-half story: 2nd level finished</option>
+                            <option value="1.5Unf">One and one-half story: 2nd level unfinished</option>
+                            <option value="2Story">Two story</option>
+                            <option value="2.5Fin">Two and one-half story: 2nd level finished</option>
+                            <option value="2.5Unf">Two and one-half story: 2nd level unfinished</option>
+                            <option value="SFoyer">Split Foyer</option>
+                            <option value="SLvl">Split Level</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="RoofStyle">Roof Style:</label>
+                        <select id="RoofStyle" name="RoofStyle" class="form-control" required>
+                            <option value="Gable">Gable</option>
+                            <option value="Hip">Hip</option>
+                            <option value="Flat">Flat</option>
+                            <option value="Gambrel">Gabrel (Barn)</option>
+                            <option value="Mansard">Mansard</option>
+                            <option value="Shed">Shed</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="TotalBsmtSF">Total Basement (Square Feet):</label>
+                        <input type="number" id="TotalBsmtSF" name="TotalBsmtSF" class="form-control" step="any" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="FullBath">Full Bathroom Count:</label>
+                        <input type="number" id="FullBath" name="FullBath" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="BedroomAbvGr">Bedrooms Count:</label>
+                        <input type="number" id="BedroomAbvGr" name="BedroomAbvGr" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="GarageCars">Garage Cars:</label>
+                        <input type="number" id="GarageCars" name="GarageCars" class="form-control" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Predict Price</button>
+                </form>
+
+                <!-- Prediction Table -->
+                {% if prediction is not none %}
+                <div class="mt-5">
+                    <h2 class="text-center mb-4">Prediction Details</h2>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>MSSubClass</td>
+                                <td>{{ request.form['MSSubClass'] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Lot size (Square Feet)</td>
+                                <td>{{ request.form['LotArea'] }}</td>
+                            </tr>
+                            <tr>
+                                <td>House Style</td>
+                                <td>{{ request.form['HouseStyle'] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Roof Style</td>
+                                <td>{{ request.form['RoofStyle'] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Total Basement (Square Feet)</td>
+                                <td>{{ request.form['TotalBsmtSF'] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Full Bathroom Count</td>
+                                <td>{{ request.form['FullBath'] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Bedrooms Count</td>
+                                <td>{{ request.form['BedroomAbvGr'] }}</td>
+                            </tr>
+                            <tr>
+                                <td>Garage Cars</td>
+                                <td>{{ request.form['GarageCars'] }}</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td><strong>Predicted Price</strong></td>
+                                <td><strong>${{ "{:,.2f}".format(prediction) }}</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">About Us</h2>
+            <div class="row">
+                <!-- Image Section -->
+                <div class="col-md-6">
+                    <img src="{{ url_for('static', filename='images/about-us.jpg') }}" alt="About Us" class="img-fluid rounded">
+                </div>
+
+                <!-- Text Section -->
+                <div class="col-md-6">
+                    <p>We are a dedicated team of real estate professionals and data scientists committed to providing accurate and reliable house price predictions. Our goal is to help you make informed decisions when buying or selling a property by leveraging advanced machine learning models and comprehensive market data.</p>
+                    <p>Our house price prediction tool uses the latest algorithms to analyze various factors that affect property values, including location, size, and architectural style. We aim to simplify the real estate market by offering a user-friendly platform that delivers precise and trustworthy price estimates.</p>
+                    <p>Whether you're a first-time homebuyer, a seasoned investor, or a real estate agent, our tool is designed to meet your needs. Trust us to help you find the true value of your property with confidence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Us Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Contact Us</h2>
+            <p class="text-center">If you have any questions, feedback, or need support, please don't hesitate to reach out to us. We're here to help you with any inquiries you may have about our house price prediction tool.</p>
+            <div class="row">
+                <!-- Contact Details -->
+                <div class="col-md-5">
+                    <h4>Contact Details</h4>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> 123 Real Estate Ave, City, Country</li>
+                        <li><i class="fas fa-phone"></i> <strong>Phone:</strong> +1 (123) 456-7890</li>
+                        <li><i class="fas fa-envelope"></i> <strong>Email:</strong> info@housepricepredictor.com</li>
+                        <li><i class="fas fa-clock"></i> <strong>Working Hours:</strong> Mon - Fri, 9:00 AM - 6:00 PM</li>
+                    </ul>
+                    <h4>Follow Us</h4>
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a href="#" class="text-dark"><i class="fab fa-facebook fa-2x"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#" class="text-dark"><i class="fab fa-twitter fa-2x"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#" class="text-dark"><i class="fab fa-linkedin fa-2x"></i></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="col-md-7">
+                    <form action="/contact" method="post">
+                        <div class="form-group">
+                            <label for="name">Your Name:</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email:</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message:</label>
+                            <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2024 House Price Predictor. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
